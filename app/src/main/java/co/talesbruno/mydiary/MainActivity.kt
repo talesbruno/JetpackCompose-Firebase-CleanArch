@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.*
@@ -15,10 +16,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.BottomNavigationBar
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.bottomNavList
+import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
+    private val authViewModel by viewModels<AuthViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
