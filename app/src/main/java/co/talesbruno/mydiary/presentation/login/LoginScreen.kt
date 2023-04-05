@@ -6,28 +6,34 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun LoginScreen(
     onNavigateToCreateAccount: () -> Unit,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    onNavigateToHomeScreen: () -> Unit
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val state by authViewModel.signIn.collectAsStateWithLifecycle()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    Scaffold() {
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) {
         Column(
             modifier = Modifier
                 .padding(20.dp)
@@ -52,6 +58,26 @@ fun LoginScreen(
             }
             Button(onClick = { onNavigateToCreateAccount() }) {
                 Text(text = "Criar conta")
+            }
+        }
+        when (state) {
+            is co.talesbruno.mydiary.domain.Result.Initial -> {
+
+            }
+            is co.talesbruno.mydiary.domain.Result.Success -> {
+                onNavigateToHomeScreen()
+            }
+            is co.talesbruno.mydiary.domain.Result.Error -> {
+                scope.launch {
+                    state.message?.let {
+                        val result = snackbarHostState.showSnackbar(
+                            it, "Ok",
+                        )
+                    }
+                }
+            }
+            is co.talesbruno.mydiary.domain.Result.Loading -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
             }
         }
     }

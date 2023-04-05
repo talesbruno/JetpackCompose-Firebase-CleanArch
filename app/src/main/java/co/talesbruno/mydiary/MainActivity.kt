@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyDiaryTheme {
                 val navController = rememberNavController()
-                MyDiary(navController)
+                LoginNavHost(navController, authViewModel)
             }
         }
     }
@@ -64,7 +64,7 @@ fun MyDiary(
             )
         }
     ) {
-        Navigation(navController)
+        HomeNavHost(navController)
     }
 }
 

@@ -15,33 +15,41 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
+    private val _signUp =
+        MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
+    val signUp: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _signUp
+
+    private val _signIn =
+        MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
+    val signIn: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _signIn
+
     private val _auth =
         MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
     val auth: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _auth
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            authRepository.login(email, password).collect{
+            authRepository.login(email, password).collect {
                 _auth.value = it
             }
         }
     }
 
-    fun isUserOnline(){
+    fun isUserOnline() {
         viewModelScope.launch {
-            authRepository.isUserOnline().collect{
+            authRepository.isUserOnline().collect {
                 _auth.value = it
             }
         }
     }
 
-    fun logout(){
+    fun logout() {
         authRepository.logout()
     }
 
-    fun createAccountToFireStore(name: String, email: String, password: String){
+    fun createAccountToFireStore(name: String, email: String, password: String) {
         viewModelScope.launch {
-            authRepository.createAccountToFireStore(name, email, password).collect{
+            authRepository.createAccountToFireStore(name, email, password).collect {
                 _auth.value = it
             }
         }
