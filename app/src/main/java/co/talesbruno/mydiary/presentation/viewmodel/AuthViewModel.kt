@@ -30,12 +30,16 @@ class AuthViewModel @Inject constructor(
     fun login(email: String, password: String) {
         viewModelScope.launch {
             authRepository.login(email, password).collect {
-                _auth.value = it
+                _signIn.value = it
             }
         }
     }
 
-    fun isUserOnline() {
+    init {
+        isUserOnline()
+    }
+
+    private fun isUserOnline() {
         viewModelScope.launch {
             authRepository.isUserOnline().collect {
                 _auth.value = it
@@ -50,7 +54,7 @@ class AuthViewModel @Inject constructor(
     fun createAccountToFireStore(name: String, email: String, password: String) {
         viewModelScope.launch {
             authRepository.createAccountToFireStore(name, email, password).collect {
-                _auth.value = it
+                _signUp.value = it
             }
         }
     }

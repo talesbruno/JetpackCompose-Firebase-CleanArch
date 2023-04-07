@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.BottomNavigationBar
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.bottomNavList
+import co.talesbruno.mydiary.presentation.mydiary.MyDiary
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,46 +29,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyDiaryTheme {
                 val navController = rememberNavController()
-                LoginNavHost(navController, authViewModel)
+                NavHost(navController = navController, authViewModel = authViewModel)
             }
         }
     }
 }
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MyDiary(
-    navController: NavHostController
-) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text(text = "Meu Diário") },
-                actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle,
-                            contentDescription = null
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    MaterialTheme.colorScheme.primary
-                )
-            )
-        },
-        bottomBar = {
-            BottomNavigationBar(
-                navController,
-                bottomNavList
-            )
-        }
-    ) {
-        HomeNavHost(navController)
-    }
-}
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true)
@@ -75,6 +41,6 @@ fun MyDiary(
 fun DefaultPreview() {
     MyDiaryTheme {
         val navController = rememberNavController()
-        MyDiary(navController)
+
     }
 }

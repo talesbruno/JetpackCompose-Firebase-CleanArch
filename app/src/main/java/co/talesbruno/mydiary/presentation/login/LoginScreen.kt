@@ -53,7 +53,7 @@ fun LoginScreen(
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { authViewModel.login(email, password) }) {
                 Text(text = "Login")
             }
             Button(onClick = { onNavigateToCreateAccount() }) {

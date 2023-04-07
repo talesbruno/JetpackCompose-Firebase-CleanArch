@@ -1,6 +1,7 @@
 package co.talesbruno.mydiary.presentation.bottomNavigationBar
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,5 +22,10 @@ val bottomNavList = listOf(
         "about",
         "About",
         Icons.Default.Info
+    ),
+    BottomNavItem(
+        "account",
+        "Account",
+        Icons.Default.AccountCircle
     ),
 )
