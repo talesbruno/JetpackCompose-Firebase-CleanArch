@@ -1,11 +1,7 @@
 package co.talesbruno.mydiary
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,12 +12,8 @@ import co.talesbruno.mydiary.presentation.about.AboutScreen
 import co.talesbruno.mydiary.presentation.home.HomeScreen
 import co.talesbruno.mydiary.presentation.login.CreateAccount
 import co.talesbruno.mydiary.presentation.login.LoginScreen
-import co.talesbruno.mydiary.presentation.mydiary.MyDiary
 import co.talesbruno.mydiary.presentation.perfil.PerfilScreen
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateAccount(
     authViewModel: AuthViewModel,
-    onNavigateToHomeScreen: () -> Unit
+    onNavigateToMainScreen: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -63,7 +63,7 @@ fun CreateAccount(
 
             }
             is co.talesbruno.mydiary.domain.Result.Success -> {
-                onNavigateToHomeScreen()
+                onNavigateToMainScreen()
             }
             is co.talesbruno.mydiary.domain.Result.Error -> {
                 scope.launch {

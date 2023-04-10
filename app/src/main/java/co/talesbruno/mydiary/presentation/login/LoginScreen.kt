@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     onNavigateToCreateAccount: () -> Unit,
     authViewModel: AuthViewModel,
-    onNavigateToHomeScreen: () -> Unit
+    onNavigateToMainScreen: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -65,7 +65,7 @@ fun LoginScreen(
 
             }
             is co.talesbruno.mydiary.domain.Result.Success -> {
-                onNavigateToHomeScreen()
+                onNavigateToMainScreen()
             }
             is co.talesbruno.mydiary.domain.Result.Error -> {
                 scope.launch {
@@ -76,7 +76,7 @@ fun LoginScreen(
                     }
                 }
             }
-            is co.talesbruno.mydiary.domain.Result.Loading -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            is co.talesbruno.mydiary.domain.Result.Loading -> {
                 CircularProgressIndicator()
             }
         }
