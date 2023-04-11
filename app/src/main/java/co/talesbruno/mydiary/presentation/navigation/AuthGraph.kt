@@ -12,19 +12,24 @@ fun NavGraphBuilder.authGraph(
     navController: NavHostController,
     authViewModel: AuthViewModel
 ) {
-    navigation(startDestination = "signin", route = "auth") {
-        composable("signin") {
+    navigation(route = Graph.AUTH, startDestination = AuthScreen.SignIn.route) {
+        composable(route = AuthScreen.SignIn.route) {
             LoginScreen(
-                onNavigateToCreateAccount = { navController.navigate("signup") },
+                onNavigateToCreateAccount = { navController.navigate(route = AuthScreen.SignUp.route) },
                 authViewModel = authViewModel,
-                onNavigateToMainScreen = { navController.navigate("main") }
+                onNavigateToMainScreen = { navController.navigate(route = Graph.MAIN) }
             )
         }
-        composable("signup") {
+        composable(route = AuthScreen.SignUp.route) {
             CreateAccount(
                 authViewModel = authViewModel,
-                onNavigateToMainScreen = { navController.navigate("main") }
+                onNavigateToMainScreen = { navController.navigate(route = Graph.MAIN) }
             )
         }
     }
+}
+
+sealed class AuthScreen(val route: String) {
+    object SignIn : AuthScreen(route = "signin")
+    object SignUp : AuthScreen(route = "signup")
 }

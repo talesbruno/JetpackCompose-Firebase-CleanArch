@@ -1,6 +1,7 @@
 package co.talesbruno.mydiary.data.reposistory
 
 import co.talesbruno.mydiary.domain.Result
+import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -82,7 +83,7 @@ class AuthRepositoryImpl @Inject constructor(
         firebaseAuth.signOut()
     }
 
-    override suspend fun isUserOnline(): Flow<Result<FirebaseUser>> = callbackFlow {
+    override suspend fun isUserOnline(): Flow<Result<User>> = callbackFlow {
         if (firebaseAuth.currentUser != null) {
             firebaseFirestore.collection("/users")
                 .whereEqualTo("uuid", firebaseAuth.currentUser!!.uid)
@@ -90,7 +91,7 @@ class AuthRepositoryImpl @Inject constructor(
                 .addOnSuccessListener { query ->
                     val userDocument = query.documents.firstOrNull()
                     if (userDocument != null) {
-                        val user = userDocument.toObject(FirebaseUser::class.java)
+                        val user = userDocument.toObject(User::class.java)
                         trySend(Result.Success("Online", user))
                     } else {
                         trySend(Result.Error("Usuário não encontrado"))

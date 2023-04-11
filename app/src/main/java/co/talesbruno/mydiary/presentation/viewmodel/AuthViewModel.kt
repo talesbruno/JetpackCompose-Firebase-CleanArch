@@ -2,6 +2,7 @@ package co.talesbruno.mydiary.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,8 +25,8 @@ class AuthViewModel @Inject constructor(
     val signIn: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _signIn
 
     private val _auth =
-        MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
-    val auth: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _auth
+        MutableStateFlow<co.talesbruno.mydiary.domain.Result<User>>(co.talesbruno.mydiary.domain.Result.Initial())
+    val auth: StateFlow<co.talesbruno.mydiary.domain.Result<User>> = _auth
 
     fun login(email: String, password: String) {
         viewModelScope.launch {

@@ -11,17 +11,22 @@ import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 fun RootNavHost(
     navController: NavHostController,
     authViewModel: AuthViewModel
-){
-    NavHost(navController = navController, startDestination = "auth", route = "root"){
+) {
+    NavHost(navController = navController, route = Graph.ROOT, startDestination = Graph.AUTH) {
         authGraph(
             navController,
             authViewModel,
         )
-        composable("main"){
+        composable(route = Graph.MAIN) {
             MainScreen(
-                navController = navController,
                 authViewModel = authViewModel,
             )
         }
     }
+}
+
+object Graph{
+    const val ROOT = "root"
+    const val AUTH = "auth"
+    const val MAIN = "main"
 }

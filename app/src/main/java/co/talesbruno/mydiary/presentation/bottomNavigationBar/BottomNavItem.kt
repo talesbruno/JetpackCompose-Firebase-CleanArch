@@ -24,8 +24,8 @@ val bottomNavList = listOf(
         Icons.Default.Info
     ),
     BottomNavItem(
-        "account",
-        "Account",
+        "profile",
+        "Profile",
         Icons.Default.AccountCircle
     ),
 )
