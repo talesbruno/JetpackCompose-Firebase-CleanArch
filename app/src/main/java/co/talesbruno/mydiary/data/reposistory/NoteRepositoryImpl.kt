@@ -1,7 +1,6 @@
 package co.talesbruno.mydiary.data.reposistory
 
-import co.talesbruno.mydiary.domain.Response
-import co.talesbruno.mydiary.domain.Result
+import co.talesbruno.mydiary.domain.util.Result
 import co.talesbruno.mydiary.domain.model.Note
 import co.talesbruno.mydiary.domain.repository.NoteRepository
 import com.google.firebase.auth.FirebaseAuth

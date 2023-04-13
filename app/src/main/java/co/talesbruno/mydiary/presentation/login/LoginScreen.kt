@@ -13,9 +13,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.talesbruno.mydiary.domain.util.Result
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
@@ -60,13 +60,13 @@ fun LoginScreen(
             }
         }
         when (state) {
-            is co.talesbruno.mydiary.domain.Result.Initial -> {
+            is Result.Initial -> {
 
             }
-            is co.talesbruno.mydiary.domain.Result.Success -> {
+            is Result.Success -> {
                 onNavigateToMainScreen()
             }
-            is co.talesbruno.mydiary.domain.Result.Error -> {
+            is Result.Error -> {
                 scope.launch {
                     state.message?.let {
                         val result = snackbarHostState.showSnackbar(
@@ -75,7 +75,7 @@ fun LoginScreen(
                     }
                 }
             }
-            is co.talesbruno.mydiary.domain.Result.Loading -> {
+            is Result.Loading -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()

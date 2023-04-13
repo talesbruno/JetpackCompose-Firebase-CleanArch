@@ -1,4 +1,4 @@
-package co.talesbruno.mydiary.domain
+package co.talesbruno.mydiary.domain.util
 
 sealed class Result<T>(
     val data: T? = null,

@@ -1,6 +1,7 @@
 package co.talesbruno.mydiary.domain.repository
 
 import co.talesbruno.mydiary.domain.model.User
+import co.talesbruno.mydiary.domain.util.Result
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
@@ -9,14 +10,14 @@ interface AuthRepository {
         name: String,
         email: String,
         password: String
-    ): Flow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>
+    ): Flow<Result<FirebaseUser>>
 
     suspend fun login(
         email: String,
         password: String
-    ): Flow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>
+    ): Flow<Result<FirebaseUser>>
 
     fun logout()
 
-    suspend fun isUserOnline(): Flow<co.talesbruno.mydiary.domain.Result<User>>
+    suspend fun isUserOnline(): Flow<Result<User>>
 }

@@ -1,4 +1,4 @@
-package co.talesbruno.mydiary.domain
+package co.talesbruno.mydiary.domain.util
 
 sealed class Response<out T> {
     object Loading: Response<Nothing>()

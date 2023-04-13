@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.domain.repository.AuthRepository
+import co.talesbruno.mydiary.domain.util.Result
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,16 +17,16 @@ class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _signUp =
-        MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
-    val signUp: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _signUp
+        MutableStateFlow<Result<FirebaseUser>>(Result.Initial())
+    val signUp: StateFlow<Result<FirebaseUser>> = _signUp
 
     private val _signIn =
-        MutableStateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>>(co.talesbruno.mydiary.domain.Result.Initial())
-    val signIn: StateFlow<co.talesbruno.mydiary.domain.Result<FirebaseUser>> = _signIn
+        MutableStateFlow<Result<FirebaseUser>>(Result.Initial())
+    val signIn: StateFlow<Result<FirebaseUser>> = _signIn
 
     private val _auth =
-        MutableStateFlow<co.talesbruno.mydiary.domain.Result<User>>(co.talesbruno.mydiary.domain.Result.Initial())
-    val auth: StateFlow<co.talesbruno.mydiary.domain.Result<User>> = _auth
+        MutableStateFlow<Result<User>>(Result.Initial())
+    val auth: StateFlow<Result<User>> = _auth
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
