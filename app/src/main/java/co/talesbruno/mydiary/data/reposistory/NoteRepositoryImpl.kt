@@ -58,7 +58,7 @@ class NoteRepositoryImpl @Inject constructor(
             .document(note.uuid)
         return try {
             userNoteRef.delete().await()
-            Result.Success("sucesso", true)
+            Result.Success("Deletado com sucesso!", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)
         }
