@@ -12,18 +12,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import co.talesbruno.mydiary.presentation.navigation.RootNavHost
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
+import co.talesbruno.mydiary.presentation.viewmodel.NoteViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val authViewModel by viewModels<AuthViewModel>()
+    private val noteViewModel by viewModels<NoteViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyDiaryTheme {
                 val navController = rememberNavController()
-                RootNavHost(navController = navController, authViewModel = authViewModel)
+                RootNavHost(
+                    navController = navController,
+                    authViewModel = authViewModel,
+                    noteViewModel = noteViewModel
+                )
             }
         }
     }

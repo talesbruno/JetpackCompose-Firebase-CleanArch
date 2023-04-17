@@ -1,26 +1,28 @@
 package co.talesbruno.mydiary.presentation.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
+import co.talesbruno.mydiary.domain.model.Note
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(
+    notes: List<Note>
+){
     Column(
-        modifier = Modifier.fillMaxWidth()
-            .background(color = Color.Red),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Home")
+        LazyColumn(){
+            items(items = notes){ note ->
+                NoteItem(note = note)
+            }
+        }
     }
 }

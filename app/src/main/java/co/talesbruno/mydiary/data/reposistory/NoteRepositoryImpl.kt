@@ -14,33 +14,37 @@ import javax.inject.Inject
 class NoteRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth, private val firebaseFirestore: FirebaseFirestore
 ) : NoteRepository {
-    override fun getAllNote(userUuid: String): Flow<Result<List<Note>>> = callbackFlow {
-        val notesCollection = firebaseFirestore
-            .collection("notes")
-            .document(userUuid)
-            .collection("userNotes")
-        val listenerRegistration = notesCollection.addSnapshotListener { snapshot, error ->
+    override fun getAllNote(): Flow<Result<List<Note>>> = callbackFlow {
+        val notesCollection = firebaseAuth.currentUser?.let { user ->
+            firebaseFirestore
+                .collection("notes")
+                .document(user.uid)
+                .collection("userNotes")
+        }
+        val listenerRegistration = notesCollection?.addSnapshotListener { snapshot, error ->
             if (error != null) {
                 trySend(Result.Error(error.message ?: "Unknown error", null))
             } else {
                 val notes = snapshot?.documents?.mapNotNull { document ->
                     document.toObject(Note::class.java)?.copy(uuid = document.id)
                 }
-                trySend(Result.Success("Lista de notas",notes ?: emptyList()))
+                trySend(Result.Success("Lista de notas", notes ?: emptyList()))
             }
         }
         awaitClose {
-            listenerRegistration.remove()
+            listenerRegistration?.remove()
         }
     }
 
-    override suspend fun insert(userUuid: String, note: Note): Result<Boolean> {
-        val userNotesRef = firebaseFirestore
-            .collection("notes")
-            .document(userUuid)
-            .collection("userNotes")
+    override suspend fun insert(note: Note): Result<Boolean> {
+        val userNotesRef = firebaseAuth.currentUser?.let { user ->
+            firebaseFirestore
+                .collection("notes")
+                .document(user.uid)
+                .collection("userNotes")
+        }
         return try {
-            userNotesRef.add(note).await()
+            userNotesRef?.add(note)?.await()
             Result.Success("Inserido com sucesso", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)
@@ -48,16 +52,17 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun delete(
-        userUuid: String,
         note: Note
     ): Result<Boolean> {
-        val userNoteRef = firebaseFirestore
-            .collection("notes")
-            .document(userUuid)
-            .collection("userNotes")
-            .document(note.uuid)
+        val userNoteRef = firebaseAuth.currentUser?.let { user ->
+            firebaseFirestore
+                .collection("notes")
+                .document(user.uid)
+                .collection("userNotes")
+                .document(note.uuid)
+        }
         return try {
-            userNoteRef.delete().await()
+            userNoteRef?.delete()?.await()
             Result.Success("Deletado com sucesso!", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)
@@ -65,22 +70,24 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(
-        userUuid: String, uuid: String, title: String, note: String
+        uuid: String, title: String, note: String
     ): Result<Boolean> {
-        val userNoteRef = firebaseFirestore
-            .collection("notes")
-            .document(userUuid)
-            .collection("userNotes")
-            .document(uuid)
+        val userNoteRef = firebaseAuth.currentUser?.let { user ->
+            firebaseFirestore
+                .collection("notes")
+                .document(user.uid)
+                .collection("userNotes")
+                .document(uuid)
+        }
         return try {
-            userNoteRef.update(
+            userNoteRef?.update(
                 mapOf(
                     "title" to title,
                     "note" to note
                 )
-            ).await()
+            )?.await()
             Result.Success("Atualizado com sucesso", true)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Result.Error(e.message.toString(), false)
         }
 

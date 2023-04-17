@@ -43,32 +43,32 @@ class NoteViewModel @Inject constructor(
     val update: StateFlow<co.talesbruno.mydiary.domain.util.Result<Boolean>> = _update
 
     init {
-        user.currentUser?.let { getAllNotes(it.uid) }
+        getAllNotes()
     }
 
-    private fun getAllNotes(userUuid: String) {
+    private fun getAllNotes() {
         viewModelScope.launch {
-            getAllNote(userUuid).collect {
+            getAllNote().collect {
                 _notes.value = it
             }
         }
     }
 
-    fun delete(userUuid: String, note: Note) {
+    fun delete(note: Note) {
         viewModelScope.launch {
-            _delete.value = deleteNote(userUuid, note)
+            _delete.value = deleteNote(note)
         }
     }
 
-    fun insert(userUuid: String, note: Note) {
+    fun insert(note: Note) {
         viewModelScope.launch {
-            _insert.value = insertNote(userUuid, note)
+            _insert.value = insertNote(note)
         }
     }
 
-    fun update(userUuid: String, uuid: String, title: String, note: String) {
+    fun update(title: String, note: String) {
         viewModelScope.launch {
-            _update.value = updateNote(userUuid, uuid, title, note)
+            _update.value = updateNote(title, note)
         }
     }
 

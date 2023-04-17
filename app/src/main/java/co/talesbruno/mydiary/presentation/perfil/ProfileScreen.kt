@@ -11,19 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 
 @Composable
 fun ProfileScreen(
-    authViewModel: AuthViewModel
+    user: User
 ){
-    val user by authViewModel.auth.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier.fillMaxWidth()
             .background(color = Color.Green),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Seja bem-vindo ${user.data?.name}")
+        Text(text = "Seja bem-vindo ${user.name}")
     }
 }

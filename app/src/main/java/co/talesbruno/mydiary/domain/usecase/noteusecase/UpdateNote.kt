@@ -6,6 +6,6 @@ import javax.inject.Inject
 class UpdateNote @Inject constructor(
     private val noteRepository: NoteRepository
 ) {
-    suspend operator fun invoke(userUuid: String, uuid: String, title: String, note: String) =
-        noteRepository.update(userUuid, uuid, title, note)
+    suspend operator fun invoke(title: String, note: String) =
+        noteRepository.update(title, note)
 }
