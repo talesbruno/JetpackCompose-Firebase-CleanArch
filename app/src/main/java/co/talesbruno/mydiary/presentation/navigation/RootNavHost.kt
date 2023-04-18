@@ -31,7 +31,6 @@ fun RootNavHost(
             notes.data?.let { notes ->
                 user.data?.let { user ->
                     MainScreen(
-                        authViewModel = authViewModel,
                         noteViewModel = noteViewModel,
                         notes = notes,
                         user = user

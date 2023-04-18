@@ -1,28 +1,46 @@
 package co.talesbruno.mydiary.presentation.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import co.talesbruno.mydiary.domain.model.Note
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(
+fun NotesScreen(
+    navController: NavController,
     notes: List<Note>
-){
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = { navController.navigateUp() }) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            }
+        }
     ) {
-        LazyColumn(){
-            items(items = notes){ note ->
-                NoteItem(note = note)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LazyColumn() {
+                items(items = notes) { note ->
+                    NoteItem(note = note, navController = navController)
+                }
             }
         }
     }
+
 }

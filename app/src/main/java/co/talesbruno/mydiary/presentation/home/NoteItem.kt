@@ -8,16 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import co.talesbruno.mydiary.domain.model.Note
+import co.talesbruno.mydiary.presentation.navigation.NotesScreens
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteItem(
-    note: Note
+    note: Note,
+    navController: NavController
 ) {
     Card(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigateUp(NotesScreens.) },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         content = {
             Row() {

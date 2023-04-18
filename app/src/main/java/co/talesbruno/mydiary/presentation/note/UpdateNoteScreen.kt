@@ -1,7 +1,7 @@
 package co.talesbruno.mydiary.presentation.note
 
+import androidx.compose.runtime.Composable
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -23,29 +22,25 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
-fun CreateNoteScreen(
+fun UpdateNoteScreen(
+    note: Note,
     noteViewModel: NoteViewModel,
-    navController: NavController
+    navController: NavController,
 ) {
-    val createNote by noteViewModel.insert.collectAsStateWithLifecycle()
+    val createNote by noteViewModel.update.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    var title by remember { mutableStateOf("") }
-    var note by remember { mutableStateOf("") }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Note")
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
-        }
-    ) {
+    var title by remember { mutableStateOf(note.title) }
+    var note by remember { mutableStateOf(note.note) }
+    Scaffold(topBar = {
+        TopAppBar(title = {
+            Text(text = "Atualizando nota")
+        }, navigationIcon = {
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        })
+    }) {
         Column(
             modifier = Modifier
                 .padding(20.dp)
@@ -65,8 +60,8 @@ fun CreateNoteScreen(
                 label = { Text(text = "Note") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
-            Button(onClick = { noteViewModel.insert(Note(title, note)) }) {
-                Text(text = "Cadastrar")
+            Button(onClick = { noteViewModel.update(title, note) }) {
+                Text(text = "Salvar")
             }
         }
         when (createNote) {

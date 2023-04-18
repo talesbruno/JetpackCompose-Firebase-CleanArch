@@ -18,36 +18,21 @@ import co.talesbruno.mydiary.presentation.viewmodel.NoteViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-    authViewModel: AuthViewModel,
     noteViewModel: NoteViewModel,
     notes: List<Note>,
     user: User,
     navController: NavHostController = rememberNavController()
 ) {
     Scaffold(
-//        topBar = {
-//            CenterAlignedTopAppBar(
-//                title = { Text(text = "Meu Diário") },
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                    MaterialTheme.colorScheme.primary
-//                )
-//            )
-//        },
         bottomBar = {
             BottomNavigationBar(
                 navController,
                 bottomNavList
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
-            }
-        }
     ) {
         MainGraph(
             navController = navController,
-            authViewModel = authViewModel,
             noteViewModel = noteViewModel,
             notes = notes,
             user = user
