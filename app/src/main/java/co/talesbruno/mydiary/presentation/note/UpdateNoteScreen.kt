@@ -60,7 +60,7 @@ fun UpdateNoteScreen(
                 label = { Text(text = "Note") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
-            Button(onClick = { noteViewModel.update(title, note) }) {
+            Button(onClick = { noteViewModel.update(Note(title = title, note = note)) }) {
                 Text(text = "Salvar")
             }
         }

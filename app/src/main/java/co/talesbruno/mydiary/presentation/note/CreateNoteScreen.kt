@@ -65,7 +65,7 @@ fun CreateNoteScreen(
                 label = { Text(text = "Note") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
-            Button(onClick = { noteViewModel.insert(Note(title, note)) }) {
+            Button(onClick = { noteViewModel.insert(Note(title = title, note = note)) }) {
                 Text(text = "Cadastrar")
             }
         }

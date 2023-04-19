@@ -17,10 +17,10 @@ import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 @Composable
 fun NoteItem(
     note: Note,
-    navController: NavController
+    onNavigateToDetailScreen: (Note) -> Unit
 ) {
     Card(
-        onClick = { navController.navigateUp(NotesScreens.) },
+        onClick = { onNavigateToDetailScreen(note) },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         content = {
             Row() {
@@ -60,6 +60,7 @@ fun NoteDetails(title: String, modifier: Modifier) {
 @Composable
 fun CardPreview() {
     MyDiaryTheme {
-        NoteItem(note = Note("dadadadad", "ola", "dadadadad", 15))
+//        NoteItem(note = Note("dadadadad", "ola", "dadadadad", "15/10/2023"))
     }
 }
+

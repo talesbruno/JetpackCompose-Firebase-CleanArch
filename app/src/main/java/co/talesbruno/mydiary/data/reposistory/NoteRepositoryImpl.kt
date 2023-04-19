@@ -55,11 +55,13 @@ class NoteRepositoryImpl @Inject constructor(
         note: Note
     ): Result<Boolean> {
         val userNoteRef = firebaseAuth.currentUser?.let { user ->
-            firebaseFirestore
-                .collection("notes")
-                .document(user.uid)
-                .collection("userNotes")
-                .document(note.uuid)
+            note.uuid?.let {
+                firebaseFirestore
+                    .collection("notes")
+                    .document(user.uid)
+                    .collection("userNotes")
+                    .document(it)
+            }
         }
         return try {
             userNoteRef?.delete()?.await()
@@ -70,22 +72,19 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(
-        uuid: String, title: String, note: String
+        note: Note
     ): Result<Boolean> {
         val userNoteRef = firebaseAuth.currentUser?.let { user ->
-            firebaseFirestore
-                .collection("notes")
-                .document(user.uid)
-                .collection("userNotes")
-                .document(uuid)
+            note.uuid?.let {
+                firebaseFirestore
+                    .collection("notes")
+                    .document(user.uid)
+                    .collection("userNotes")
+                    .document(it)
+            }
         }
         return try {
-            userNoteRef?.update(
-                mapOf(
-                    "title" to title,
-                    "note" to note
-                )
-            )?.await()
+            userNoteRef?.set(note)?.await()
             Result.Success("Atualizado com sucesso", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)

@@ -20,12 +20,13 @@ import co.talesbruno.mydiary.domain.model.Note
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NotesScreen(
-    navController: NavController,
-    notes: List<Note>
+    notes: List<Note>,
+    onNavigateToDetailScreen: (Note) -> Unit,
+    onNavigateToCreateNoteScreen: () -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { navController.navigateUp() }) {
+            FloatingActionButton(onClick = { onNavigateToCreateNoteScreen() }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }
@@ -37,7 +38,10 @@ fun NotesScreen(
         ) {
             LazyColumn() {
                 items(items = notes) { note ->
-                    NoteItem(note = note, navController = navController)
+                    NoteItem(
+                        note = note,
+                        onNavigateToDetailScreen = onNavigateToDetailScreen
+                    )
                 }
             }
         }
