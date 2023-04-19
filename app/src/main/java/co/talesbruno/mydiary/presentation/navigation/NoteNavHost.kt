@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import co.talesbruno.mydiary.domain.model.Note
 import co.talesbruno.mydiary.presentation.home.NotesScreen
@@ -15,11 +16,11 @@ import co.talesbruno.mydiary.presentation.viewmodel.NoteViewModel
 
 @Composable
 fun NoteGraph(
-    navController: NavHostController,
+    navController: NavHostController = rememberNavController(),
     notes: List<Note>,
     noteViewModel: NoteViewModel
 ) {
-    NavHost(navController = navController, startDestination = MainScreens.Home.route) {
+    NavHost(navController = navController, startDestination = NotesScreens.Notes.route) {
         composable(route = NotesScreens.Notes.route) {
             NotesScreen(
                 notes = notes,

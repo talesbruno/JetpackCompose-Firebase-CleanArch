@@ -21,7 +21,6 @@ fun MainGraph(
     NavHost(navController = navController, startDestination = MainScreens.Home.route) {
         composable(route = MainScreens.Home.route) {
             NoteGraph(
-                navController = navController,
                 notes = notes,
                 noteViewModel = noteViewModel,
             )

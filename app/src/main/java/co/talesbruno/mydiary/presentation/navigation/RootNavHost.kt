@@ -21,7 +21,7 @@ fun RootNavHost(
     NavHost(
         navController = navController,
         route = Graph.ROOT,
-        startDestination = if (user.data != null) Graph.MAIN else Graph.AUTH
+        startDestination = Graph.AUTH
     ) {
         authGraph(
             navController,
