@@ -33,7 +33,11 @@ fun RootNavHost(
                     MainScreen(
                         noteViewModel = noteViewModel,
                         notes = notes,
-                        user = user
+                        user = user,
+                        authViewModel = authViewModel,
+                        onNavigateToLoginScreen = {
+                            navController.navigate(Graph.AUTH)
+                        }
                     )
                 }
             }

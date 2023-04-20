@@ -16,7 +16,9 @@ fun MainGraph(
     navController: NavHostController,
     notes: List<Note>,
     user: User,
-    noteViewModel: NoteViewModel
+    noteViewModel: NoteViewModel,
+    authViewModel: AuthViewModel,
+    onNavigateToLoginScreen: () -> Unit
 ) {
     NavHost(navController = navController, startDestination = MainScreens.Home.route) {
         composable(route = MainScreens.Home.route) {
@@ -30,7 +32,9 @@ fun MainGraph(
         }
         composable(route = MainScreens.Profile.route) {
             ProfileScreen(
-                user = user
+                user = user,
+                onNavigateToLoginScreen = onNavigateToLoginScreen,
+                authViewModel = authViewModel
             )
         }
     }

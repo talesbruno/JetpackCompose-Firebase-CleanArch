@@ -26,9 +26,6 @@ fun NoteDetailsScreen(
     noteViewModel: NoteViewModel,
     navController: NavController,
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
-
     Scaffold(topBar = {
         TopAppBar(title = {
             Text(text = "Note Detail")

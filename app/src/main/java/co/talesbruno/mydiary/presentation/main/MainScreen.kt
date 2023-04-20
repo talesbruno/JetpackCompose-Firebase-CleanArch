@@ -13,6 +13,7 @@ import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.BottomNavigationBar
 import co.talesbruno.mydiary.presentation.bottomNavigationBar.bottomNavList
 import co.talesbruno.mydiary.presentation.navigation.MainGraph
+import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.presentation.viewmodel.NoteViewModel
 import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 
@@ -20,8 +21,10 @@ import co.talesbruno.mydiary.ui.theme.MyDiaryTheme
 @Composable
 fun MainScreen(
     noteViewModel: NoteViewModel,
+    authViewModel: AuthViewModel,
     notes: List<Note>,
     user: User,
+    onNavigateToLoginScreen: () -> Unit,
     navController: NavHostController = rememberNavController()
 ) {
     Scaffold(
@@ -36,7 +39,9 @@ fun MainScreen(
             navController = navController,
             noteViewModel = noteViewModel,
             notes = notes,
-            user = user
+            user = user,
+            authViewModel = authViewModel,
+            onNavigateToLoginScreen = onNavigateToLoginScreen
         )
     }
 }
