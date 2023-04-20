@@ -55,12 +55,4 @@ fun NoteDetails(title: String, modifier: Modifier) {
     )
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(showBackground = true)
-@Composable
-fun CardPreview() {
-    MyDiaryTheme {
-//        NoteItem(note = Note("dadadadad", "ola", "dadadadad", "15/10/2023"))
-    }
-}
 
