@@ -48,18 +48,22 @@ fun UpdateNoteScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            OutlinedTextField(
-                value = title,
-                onValueChange = { title = it },
-                label = { Text(text = "Title") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-            )
-            OutlinedTextField(
-                value = note,
-                onValueChange = { note = it },
-                label = { Text(text = "Note") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-            )
+            title?.let { it1 ->
+                OutlinedTextField(
+                    value = it1,
+                    onValueChange = { title = it },
+                    label = { Text(text = "Title") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                )
+            }
+            note?.let { it1 ->
+                OutlinedTextField(
+                    value = it1,
+                    onValueChange = { note = it },
+                    label = { Text(text = "Note") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                )
+            }
             Button(onClick = { noteViewModel.update(Note(title = title, note = note)) }) {
                 Text(text = "Salvar")
             }

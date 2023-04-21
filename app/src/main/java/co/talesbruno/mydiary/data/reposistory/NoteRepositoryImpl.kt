@@ -44,7 +44,9 @@ class NoteRepositoryImpl @Inject constructor(
                 .collection("userNotes")
         }
         return try {
-            userNotesRef?.add(note)?.await()
+            val documentReference = userNotesRef?.add(note)?.await()
+            val uuid = documentReference?.id
+            documentReference?.update("uuid", uuid)?.await()
             Result.Success("Inserido com sucesso", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)

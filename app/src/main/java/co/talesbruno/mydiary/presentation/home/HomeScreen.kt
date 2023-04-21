@@ -24,7 +24,7 @@ fun NotesScreen(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(16.dp),
     ) {
         Text(text = "Minhas anotações")

@@ -42,9 +42,9 @@ fun NoteDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = note.title)
+            note.title?.let { it1 -> Text(text = it1) }
             Spacer(modifier = Modifier.size(4.dp))
-            Text(text = note.note)
+            note.note?.let { it1 -> Text(text = it1) }
             Button(onClick = { navController.navigateUp() }) {
                 Text(text = "Update")
             }

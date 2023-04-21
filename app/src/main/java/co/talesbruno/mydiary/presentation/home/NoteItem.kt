@@ -25,13 +25,15 @@ fun NoteItem(
         content = {
             Row() {
                 NoteIcon(
-                    note.timestamp.toString(),
+                    note.timestamp,
                     Modifier.weight(0.15f)
                 )
-                NoteDetails(
-                    note.title,
-                    Modifier.weight(0.85f)
-                )
+                note.title?.let {
+                    NoteDetails(
+                        it,
+                        Modifier.weight(0.85f)
+                    )
+                }
             }
         },
         modifier = Modifier.padding(8.dp)
