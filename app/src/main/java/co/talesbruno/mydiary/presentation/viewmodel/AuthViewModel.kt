@@ -50,6 +50,8 @@ class AuthViewModel @Inject constructor(
 
     fun logout() {
         authRepository.logout()
+        _signIn.value = Result.Initial()
+        _signUp.value = Result.Initial()
     }
 
     fun createAccountToFireStore(name: String, email: String, password: String) {
