@@ -31,7 +31,7 @@ fun UpdateNoteScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var title by remember { mutableStateOf(note.title) }
-    var note by remember { mutableStateOf(note.note) }
+    var nota by remember { mutableStateOf(note.note) }
     Scaffold(topBar = {
         TopAppBar(title = {
             Text(text = "Atualizando nota")
@@ -56,15 +56,23 @@ fun UpdateNoteScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                 )
             }
-            note?.let { it1 ->
+            nota?.let { it1 ->
                 OutlinedTextField(
                     value = it1,
-                    onValueChange = { note = it },
+                    onValueChange = { nota = it },
                     label = { Text(text = "Note") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                 )
             }
-            Button(onClick = { noteViewModel.update(Note(title = title, note = note)) }) {
+            Button(onClick = {
+                note.uuid?.let { uuid ->
+                    noteViewModel.update(
+                        uuid,
+                        title,
+                        nota
+                    )
+                }
+            }) {
                 Text(text = "Salvar")
             }
         }

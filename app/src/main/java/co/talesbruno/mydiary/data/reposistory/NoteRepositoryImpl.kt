@@ -26,7 +26,7 @@ class NoteRepositoryImpl @Inject constructor(
                 trySend(Result.Error(error.message ?: "Unknown error", null))
             } else {
                 val notes = snapshot?.documents?.mapNotNull { document ->
-                    document.toObject(Note::class.java)?.copy(uuid = document.id)
+                    document.toObject(Note::class.java)
                 }
                 trySend(Result.Success("Lista de notas", notes ?: emptyList()))
             }
@@ -74,19 +74,18 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(
-        note: Note
+        uuid: String, title: String?, note: String?
     ): Result<Boolean> {
         val userNoteRef = firebaseAuth.currentUser?.let { user ->
-            note.uuid?.let {
-                firebaseFirestore
-                    .collection("notes")
-                    .document(user.uid)
-                    .collection("userNotes")
-                    .document(it)
-            }
+            firebaseFirestore
+                .collection("notes")
+                .document(user.uid)
+                .collection("userNotes")
+                .document(uuid)
+
         }
         return try {
-            userNoteRef?.set(note)?.await()
+            userNoteRef?.update("title", title, "note", note)?.await()
             Result.Success("Atualizado com sucesso", true)
         } catch (e: Exception) {
             Result.Error(e.message.toString(), false)

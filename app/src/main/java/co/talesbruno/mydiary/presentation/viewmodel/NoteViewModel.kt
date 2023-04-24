@@ -66,9 +66,9 @@ class NoteViewModel @Inject constructor(
         }
     }
 
-    fun update(note: Note) {
+    fun update(uuid: String, title: String?, note: String?) {
         viewModelScope.launch {
-            _update.value = updateNote(note)
+            _update.value = updateNote(uuid, title, note)
         }
     }
 

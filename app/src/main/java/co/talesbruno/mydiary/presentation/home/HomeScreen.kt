@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,14 +18,14 @@ import co.talesbruno.mydiary.domain.model.Note
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NotesScreen(
+fun HomeScreen(
     notes: List<Note>,
     onNavigateToDetailScreen: (Note) -> Unit,
     onNavigateToCreateNoteScreen: () -> Unit
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp),
     ) {
         Text(text = "Minhas anotações")
@@ -32,16 +33,20 @@ fun NotesScreen(
         LazyColumn() {
             items(items = notes) { note ->
                 NoteItem(
-                    note = note,
-                    onNavigateToDetailScreen = onNavigateToDetailScreen
+                    note = note, onNavigateToDetailScreen = onNavigateToDetailScreen
                 )
             }
         }
-        FloatingActionButton(
-            onClick = { onNavigateToCreateNoteScreen() },
-            modifier = Modifier.align(Alignment.End)
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomEnd
         ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            FloatingActionButton(
+                onClick = { onNavigateToCreateNoteScreen() },
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            }
         }
     }
 }

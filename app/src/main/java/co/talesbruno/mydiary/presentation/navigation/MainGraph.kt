@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import co.talesbruno.mydiary.domain.model.Note
 import co.talesbruno.mydiary.domain.model.User
 import co.talesbruno.mydiary.presentation.about.AboutScreen
+import co.talesbruno.mydiary.presentation.home.HomeScreen
 import co.talesbruno.mydiary.presentation.perfil.ProfileScreen
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
 import co.talesbruno.mydiary.presentation.viewmodel.NoteViewModel
@@ -18,13 +19,13 @@ fun MainGraph(
     user: User,
     noteViewModel: NoteViewModel,
     authViewModel: AuthViewModel,
-    onNavigateToLoginScreen: () -> Unit
+    onNavigateToLoginScreen: () -> Unit,
 ) {
     NavHost(navController = navController, startDestination = MainScreens.Home.route) {
         composable(route = MainScreens.Home.route) {
             NoteGraph(
                 notes = notes,
-                noteViewModel = noteViewModel,
+                noteViewModel = noteViewModel
             )
         }
         composable(route = MainScreens.About.route) {
@@ -39,6 +40,7 @@ fun MainGraph(
         }
     }
 }
+
 
 
 sealed class MainScreens(val route: String) {

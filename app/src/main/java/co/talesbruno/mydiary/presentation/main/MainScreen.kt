@@ -45,14 +45,3 @@ fun MainScreen(
         )
     }
 }
-
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(showBackground = true)
-@Composable
-fun MainPreview() {
-    MyDiaryTheme {
-        val navController = rememberNavController()
-
-    }
-}

@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import co.talesbruno.mydiary.domain.model.Note
-import co.talesbruno.mydiary.presentation.home.NotesScreen
+import co.talesbruno.mydiary.presentation.home.HomeScreen
 import co.talesbruno.mydiary.presentation.note.CreateNoteScreen
 import co.talesbruno.mydiary.presentation.note.NoteDetailsScreen
 import co.talesbruno.mydiary.presentation.note.UpdateNoteScreen
@@ -22,14 +22,11 @@ fun NoteGraph(
 ) {
     NavHost(navController = navController, startDestination = NotesScreens.Notes.route) {
         composable(route = NotesScreens.Notes.route) {
-            NotesScreen(
+            HomeScreen(
                 notes = notes,
                 onNavigateToDetailScreen = { note ->
                     navController.navigate(
-                        NotesScreens.NoteDetail.route.replace(
-                            "{noteId}",
-                            note.uuid.toString()
-                        )
+                        NotesScreens.NoteDetail.route + note.uuid
                     )
                 },
                 onNavigateToCreateNoteScreen = {
