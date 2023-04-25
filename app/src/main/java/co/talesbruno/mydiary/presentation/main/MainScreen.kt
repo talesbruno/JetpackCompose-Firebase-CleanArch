@@ -34,14 +34,15 @@ fun MainScreen(
                 bottomNavList
             )
         },
-    ) {
-        MainGraph(
-            navController = navController,
-            noteViewModel = noteViewModel,
-            notes = notes,
-            user = user,
-            authViewModel = authViewModel,
-            onNavigateToLoginScreen = onNavigateToLoginScreen
-        )
-    }
+        content = {
+            MainGraph(
+                navController = navController,
+                noteViewModel = noteViewModel,
+                notes = notes,
+                user = user,
+                authViewModel = authViewModel,
+                onNavigateToLoginScreen = onNavigateToLoginScreen
+            )
+        }
+    )
 }

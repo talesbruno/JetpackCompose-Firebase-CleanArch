@@ -8,8 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,31 +21,32 @@ fun HomeScreen(
     onNavigateToDetailScreen: (Note) -> Unit,
     onNavigateToCreateNoteScreen: () -> Unit
 ) {
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxSize()
+            .padding(bottom = 80.dp),
     ) {
-        Text(text = "Minhas anotações")
-        Spacer(modifier = Modifier.size(4.dp))
-        LazyColumn() {
-            items(items = notes) { note ->
-                NoteItem(
-                    note = note, onNavigateToDetailScreen = onNavigateToDetailScreen
-                )
+        Column(
+
+        ) {
+            LazyColumn(
+            ) {
+                items(items = notes) { note ->
+                    NoteItem(
+                        note = note, onNavigateToDetailScreen = onNavigateToDetailScreen
+                    )
+                }
             }
         }
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomEnd
+        FloatingActionButton(
+            onClick = { onNavigateToCreateNoteScreen() },
+            modifier = Modifier.padding(8.dp).align(Alignment.BottomEnd)
         ) {
-            FloatingActionButton(
-                onClick = { onNavigateToCreateNoteScreen() },
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
-            }
+            Icon(imageVector = Icons.Default.Add, contentDescription = null)
         }
     }
+
 }
+
+
 

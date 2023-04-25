@@ -40,7 +40,5 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MyDiaryTheme {
-        val navController = rememberNavController()
-
     }
 }
