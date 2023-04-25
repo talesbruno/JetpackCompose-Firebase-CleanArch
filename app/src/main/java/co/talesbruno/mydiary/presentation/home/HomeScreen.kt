@@ -12,14 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import co.talesbruno.mydiary.domain.model.Note
+import co.talesbruno.mydiary.presentation.navigation.MainScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     notes: List<Note>,
+    onNavigateToCreateNoteScreen: () -> Unit,
     onNavigateToDetailScreen: (Note) -> Unit,
-    onNavigateToCreateNoteScreen: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -33,7 +35,8 @@ fun HomeScreen(
             ) {
                 items(items = notes) { note ->
                     NoteItem(
-                        note = note, onNavigateToDetailScreen = onNavigateToDetailScreen
+                        note = note,
+                        onNavigateToDetailScreen = onNavigateToDetailScreen
                     )
                 }
             }

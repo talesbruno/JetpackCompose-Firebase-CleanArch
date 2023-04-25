@@ -30,14 +30,12 @@ fun MainGraph(
         composable(route = MainScreens.Home.route) {
             HomeScreen(
                 notes = notes,
-                onNavigateToDetailScreen = { note ->
-                    navController.navigate(
-                        MainScreens.NoteDetail.route + note.uuid
-                    )
-                },
                 onNavigateToCreateNoteScreen = {
                     navController.navigate(MainScreens.CreateNote.route)
-                }
+                },
+                onNavigateToDetailScreen = { noteId ->
+                    navController.navigate(MainScreens.NoteDetail.createRoute(noteId.uuid.toString()))
+                },
             )
         }
         composable(route = MainScreens.About.route) {
@@ -63,7 +61,7 @@ fun MainGraph(
             val noteId = backStackEntry.arguments?.getString("noteId")
             requireNotNull(noteId)
             val note = notes.find { note ->
-                note.note == noteId
+                note.uuid == noteId
             }
             if (note != null) {
                 UpdateNoteScreen(
@@ -80,7 +78,7 @@ fun MainGraph(
             val noteId = backStackEntry.arguments?.getString("noteId")
             requireNotNull(noteId)
             val note = notes.find { note ->
-                note.note == noteId
+                note.uuid == noteId
             }
             if (note != null) {
                 NoteDetailsScreen(
@@ -100,6 +98,10 @@ sealed class MainScreens(val route: String) {
     object About : MainScreens(route = "about")
     object Profile : MainScreens(route = "profile")
     object CreateNote : MainScreens(route = "createnote")
-    object UpdateNote : MainScreens(route = "updatenote/{noteId}")
-    object NoteDetail : MainScreens(route = "notedetail/{noteId}")
+    object UpdateNote : MainScreens(route = "updatenote/{noteId}"){
+        fun createRoute(noteId: String) = "updatenote/$noteId"
+    }
+    object NoteDetail : MainScreens(route = "notedetail/{noteId}"){
+        fun createRoute(noteId: String) = "notedetail/$noteId"
+    }
 }
