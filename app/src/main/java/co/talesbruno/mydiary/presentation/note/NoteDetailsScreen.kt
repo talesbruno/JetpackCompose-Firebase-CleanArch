@@ -18,6 +18,7 @@ fun NoteDetailsScreen(
     note: Note,
     noteViewModel: NoteViewModel,
     navController: NavController,
+    onNavigateToUpdateScreen: (Note) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -29,10 +30,16 @@ fun NoteDetailsScreen(
         note.title?.let { it1 -> Text(text = it1) }
         Spacer(modifier = Modifier.size(4.dp))
         note.note?.let { it1 -> Text(text = it1) }
-        Button(onClick = { navController.navigateUp() }) {
+        Button(
+            onClick = { onNavigateToUpdateScreen(note) }) {
             Text(text = "Update")
         }
-        Button(onClick = { noteViewModel.delete(note) }) {
+        Button(
+            onClick = {
+                noteViewModel.delete(note)
+                navController.navigateUp()
+            }
+        ) {
             Text(text = "Delete")
         }
     }

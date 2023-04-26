@@ -36,14 +36,16 @@ fun HomeScreen(
                 items(items = notes) { note ->
                     NoteItem(
                         note = note,
-                        onNavigateToDetailScreen = onNavigateToDetailScreen
+                        onNavigateToDetailScreen = onNavigateToDetailScreen,
                     )
                 }
             }
         }
         FloatingActionButton(
             onClick = { onNavigateToCreateNoteScreen() },
-            modifier = Modifier.padding(8.dp).align(Alignment.BottomEnd)
+            modifier = Modifier
+                .padding(8.dp)
+                .align(Alignment.BottomEnd)
         ) {
             Icon(imageVector = Icons.Default.Add, contentDescription = null)
         }

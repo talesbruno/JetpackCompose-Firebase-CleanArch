@@ -12,7 +12,7 @@ import co.talesbruno.mydiary.domain.model.Note
 @Composable
 fun NoteItem(
     note: Note,
-    onNavigateToDetailScreen: (Note) -> Unit
+    onNavigateToDetailScreen: (Note) -> Unit,
 ) {
     Card(
         onClick = { onNavigateToDetailScreen(note) },

@@ -84,7 +84,10 @@ fun MainGraph(
                 NoteDetailsScreen(
                     noteViewModel = noteViewModel,
                     navController = navController,
-                    note = note
+                    note = note,
+                    onNavigateToUpdateScreen = { noteId ->
+                        navController.navigate(MainScreens.UpdateNote.createRoute(noteId.uuid.toString()))
+                    }
                 )
             }
         }
