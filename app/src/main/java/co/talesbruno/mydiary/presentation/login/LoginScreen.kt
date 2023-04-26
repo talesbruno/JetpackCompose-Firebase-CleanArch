@@ -2,6 +2,7 @@ package co.talesbruno.mydiary.presentation.login
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -12,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.talesbruno.mydiary.domain.util.Result
 import co.talesbruno.mydiary.presentation.viewmodel.AuthViewModel
@@ -40,6 +42,11 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = "Seja Bem-vindo",
+                fontSize = 30.sp
+            )
+            Spacer(modifier = Modifier.size(16.dp))
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -52,16 +59,27 @@ fun LoginScreen(
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
+            Spacer(modifier = Modifier.size(16.dp))
             Button(onClick = { authViewModel.login(email, password) }) {
                 Text(text = "Login")
             }
-            Button(onClick = { onNavigateToCreateAccount() }) {
-                Text(text = "Criar conta")
-            }
+            Spacer(modifier = Modifier.size(16.dp))
+            Text(text = "Não tem uma conta?")
+            Text(
+                text = "Criar conta",
+                modifier = Modifier.clickable { onNavigateToCreateAccount() },
+                color = MaterialTheme.colorScheme.secondary
+            )
         }
         when (state) {
             is Result.Initial -> {
-
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
             is Result.Success -> {
                 onNavigateToMainScreen()
@@ -78,8 +96,7 @@ fun LoginScreen(
             is Result.Loading -> {
                 Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.5f)),
+                        .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator()
@@ -93,6 +110,5 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     MyDiaryTheme {
-
     }
 }
