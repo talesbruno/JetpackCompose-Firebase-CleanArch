@@ -29,9 +29,13 @@ class AuthViewModel @Inject constructor(
     val auth: StateFlow<Result<User>> = _auth
 
     fun login(email: String, password: String) {
-        viewModelScope.launch {
-            authRepository.login(email, password).collect {
-                _signIn.value = it
+        if (email.isEmpty() || password.isEmpty()) {
+            _signIn.value = Result.Error("Preencha os campos corretamente!")
+        } else {
+            viewModelScope.launch {
+                authRepository.login(email, password).collect {
+                    _signIn.value = it
+                }
             }
         }
     }
@@ -55,9 +59,13 @@ class AuthViewModel @Inject constructor(
     }
 
     fun createAccountToFireStore(name: String, email: String, password: String) {
-        viewModelScope.launch {
-            authRepository.createAccountToFireStore(name, email, password).collect {
-                _signUp.value = it
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            _signIn.value = Result.Error("Preencha os campos corretamente!")
+        } else {
+            viewModelScope.launch {
+                authRepository.createAccountToFireStore(name, email, password).collect {
+                    _signUp.value = it
+                }
             }
         }
     }

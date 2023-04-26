@@ -84,6 +84,7 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isUserOnline(): Flow<Result<User>> = callbackFlow {
+        trySend(Result.Loading())
         if (firebaseAuth.currentUser != null) {
             firebaseFirestore.collection("/users")
                 .whereEqualTo("uuid", firebaseAuth.currentUser!!.uid)
