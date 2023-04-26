@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,7 +45,9 @@ fun LoginScreen(
         ) {
             Text(
                 text = "Seja Bem-vindo",
-                fontSize = 30.sp
+                fontSize = 30.sp,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.size(16.dp))
             OutlinedTextField(
@@ -68,18 +71,12 @@ fun LoginScreen(
             Text(
                 text = "Criar conta",
                 modifier = Modifier.clickable { onNavigateToCreateAccount() },
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.primary
             )
         }
         when (state) {
             is Result.Initial -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
+
             }
             is Result.Success -> {
                 onNavigateToMainScreen()
