@@ -55,18 +55,21 @@ class NoteViewModel @Inject constructor(
     }
 
     fun delete(note: Note) {
+        _delete.value = co.talesbruno.mydiary.domain.util.Result.Loading()
         viewModelScope.launch {
             _delete.value = deleteNote(note)
         }
     }
 
     fun insert(note: Note) {
+        _insert.value = co.talesbruno.mydiary.domain.util.Result.Loading()
         viewModelScope.launch {
             _insert.value = insertNote(note)
         }
     }
 
     fun update(uuid: String, title: String?, note: String?) {
+        _update.value = co.talesbruno.mydiary.domain.util.Result.Loading()
         viewModelScope.launch {
             _update.value = updateNote(uuid, title, note)
         }

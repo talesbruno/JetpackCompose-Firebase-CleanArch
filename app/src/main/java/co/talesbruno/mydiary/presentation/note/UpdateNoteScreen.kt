@@ -2,16 +2,19 @@ package co.talesbruno.mydiary.presentation.note
 
 import androidx.compose.runtime.Composable
 import android.annotation.SuppressLint
+import android.widget.Space
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import co.talesbruno.mydiary.domain.model.Note
@@ -64,6 +67,7 @@ fun UpdateNoteScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                 )
             }
+            Spacer(modifier = Modifier.size(16.dp))
             Button(onClick = {
                 note.uuid?.let { uuid ->
                     noteViewModel.update(
@@ -73,7 +77,15 @@ fun UpdateNoteScreen(
                     )
                 }
             }) {
-                Text(text = "Salvar")
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = "Salvar",
+                    fontSize = 16.sp
+                )
             }
         }
         when (createNote) {

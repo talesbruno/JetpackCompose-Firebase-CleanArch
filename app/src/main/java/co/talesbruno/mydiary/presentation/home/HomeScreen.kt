@@ -8,13 +8,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.compose.ui.unit.sp
 import co.talesbruno.mydiary.domain.model.Note
-import co.talesbruno.mydiary.presentation.navigation.MainScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -29,15 +32,26 @@ fun HomeScreen(
             .padding(bottom = 80.dp),
     ) {
         Column(
-
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            LazyColumn(
-            ) {
+            Text(
+                text = "Minhas Notas",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.size(22.dp))
+            LazyColumn() {
                 items(items = notes) { note ->
                     NoteItem(
                         note = note,
                         onNavigateToDetailScreen = onNavigateToDetailScreen,
                     )
+                    Spacer(modifier = Modifier.size(16.dp))
                 }
             }
         }

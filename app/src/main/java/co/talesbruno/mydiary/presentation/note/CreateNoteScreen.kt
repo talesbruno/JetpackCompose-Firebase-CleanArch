@@ -11,8 +11,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import co.talesbruno.mydiary.domain.model.Note
@@ -53,6 +55,12 @@ fun CreateNoteScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = "Cadastrando uma nova Nota",
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
@@ -65,6 +73,7 @@ fun CreateNoteScreen(
                 label = { Text(text = "Note") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
+            Spacer(modifier = Modifier.size(16.dp))
             Button(onClick = { noteViewModel.insert(Note(title = title, note = note)) }) {
                 Text(text = "Cadastrar")
             }
